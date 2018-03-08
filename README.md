@@ -4,3 +4,4 @@ Main components of this assignment are
 2. Store image in WebSQL as blob.
 
 
+***********************************************************
