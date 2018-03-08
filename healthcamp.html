@@ -12,12 +12,22 @@
 
 		<style>
 			​#demo,#vitals,#reports { display: none; }
+
+			 video, img {
+				 max-width:50%;
+			 }
+            table, th, td {
+                border: 1px solid black;
+            }
+            th,td{
+                text-align:center ;
+            }
 		</style>
 
 
 
 	</head>
-	<body>
+	<body onload="CreateTable()">
 		<nav class="navbar-dark fixed-top" style="background-color:#2E4053">
 			<a class="navbar-brand" href="#"><h style="color: white;size: 1.5em;">Health Camp SPA</h></a>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -26,13 +36,13 @@
 
 				<!--<ul class="navbar-nav mr-auto" style="list-style-type:none;float: right;padding: 15px;">-->
 					<!--<li class="nav-item">-->
-						<button class="nav-link" onclick="javascript:showDemo();" style="padding: inherit;border: none;background:#66ccff;"><h style="color: white;font-size: 1.2em; ">Demographics</h></button>
+						<button class="nav-link" id="demoid" onclick="javascript:showDemo();" style="padding: inherit;border: none;background:#66ccff;"><h style="color: white;font-size: 1.2em; ">Demographics</h></button>
 					<!--</li>-->
 					<!--<li class="nav-item dropdown">-->
-						<button class="nav-link" onclick="javascript:showVitals();" style="padding: inherit;border: none;background:#2E4053;"><h style="color: white;font-size: 1.2em;">Health Vitals</h></button>
+						<button class="nav-link" id="vitalsid" onclick="javascript:showVitals();" style="padding: inherit;border: none;background:#2E4053;"><h style="color: white;font-size: 1.2em;">Health Vitals</h></button>
 					<!--</li>&emsp;&emsp;&emsp;-->
 					<!--<li class="nav-item">-->
-						<button class="nav-link" onclick="javascript:showReports();" style="padding: inherit;border: none;background:#2E4053;"><h style="color: white;font-size: 1.2em;">Reports</h></button>
+						<button class="nav-link" id="reportsid" onclick="javascript:showReports();" style="padding: inherit;border: none;background:#2E4053;"><h style="color: white;font-size: 1.2em;">Reports</h></button>
 					<!--</li>-->
 				<!--</ul>-->
 				</div>
@@ -41,52 +51,56 @@
 		<div>
 			<div id="demo" style="margin-top: 5%">
 				<div style="width: 50%;float: left" align="right">
+                    <!--<form>-->
 					<div class="form-group">
 						<label for="firstname">First name:</label>
-						<input id="firstname" type="text" style="border-radius: 2px;">
+						<input id="firstname" type="text" style="border-radius: 2px;" required>
 					</div>
 					<div class="form-group">
 						<label for="lastname">Last name:</label>
-						<input id="lastname" type="text" style="border-radius: 2px;">
+						<input id="lastname" type="text" style="border-radius: 2px;" required>
 					</div>
 
-					<div class="form-group" id="gender">
+					<div class="form-group" id="gender1">
 						<label for="gender">Gender:</label>
 						<label>
-							<select class="form-control" style=" width: 150%">
+							<select class="form-control"  id="gender"required>
 								<option></option>
-								<option value="male">--Male--</option>
-								<option value="female">--Female--</option>
-								<option value="other">--other--</option>
+								<option value="male">Male</option>
+								<option value="female">Female</option>
+								<option value="other">other</option>
 							</select>
 						</label>
 					</div>
 
 					<div class="form-group">
 						<label for="age">Age:</label>
-						<input id="age" type="text" style="border-radius: 2px;">
+						<input id="age" type="text" style="border-radius: 2px;" required>
 					</div>
 					<div class="form-group">
 						<label for="notes">Notes or other details:</label>
 						<textarea id="notes" rows="4" style="border-radius:2px; width: 30%"></textarea>
 					</div>
-                    <button class="btn btn-success">Save</button>
+                    <button class="btn btn-success" type="submit" onclick="saveDemographics()">Save</button>
+                    <!--</form>-->
 				</div>
 
 				<div style="margin-left: 51%;border-left: 2px solid deepskyblue;" align="center">
-                    <div class="camera">
-                        <!--<video id="video" src="blob:https://mdn-samples.mozilla.org/5ee4e652-9824-430e-bb2b-b470276bb9d4" width="320" height="240">Video stream not available.</video>-->
-                        <!--<input type="file" accept="image/*;capture=camera">-->
-                        <!--<input type="file" accept="video/*;capture=camcorder">-->
-                    </div>
-                    <button id="startbutton" class="btn btn-primary">Take photo</button>
+                    <!--<div class="camera">-->
+                        <!--&lt;!&ndash;<video id="video" src="blob:https://mdn-samples.mozilla.org/5ee4e652-9824-430e-bb2b-b470276bb9d4" width="320" height="240">Video stream not available.</video>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<input type="file" accept="image/*;capture=camera">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<input type="file" accept="video/*;capture=camcorder">&ndash;&gt;-->
+                    <!--</div>-->
+					<video autoplay></video>
+					<button id="startbutton" class="btn btn-primary">Take photo</button>
                     <canvas id="canvas">
                     </canvas>
                     <!--<div class="output">-->
                         <!--<img id="photo" alt="The screen capture will appear in this box." src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAACWCAYAAABkW7XSAAAEaUlEQVR4Xu3UAQkAMAwDwdW/k5rcYC4ergrCpWR29x5HgACBgMAYrEBLIhIg8AUMlkcgQCAjYLAyVQlKgIDB8gMECGQEDFamKkEJEDBYfoAAgYyAwcpUJSgBAgbLDxAgkBEwWJmqBCVAwGD5AQIEMgIGK1OVoAQIGCw/QIBARsBgZaoSlAABg+UHCBDICBisTFWCEiBgsPwAAQIZAYOVqUpQAgQMlh8gQCAjYLAyVQlKgIDB8gMECGQEDFamKkEJEDBYfoAAgYyAwcpUJSgBAgbLDxAgkBEwWJmqBCVAwGD5AQIEMgIGK1OVoAQIGCw/QIBARsBgZaoSlAABg+UHCBDICBisTFWCEiBgsPwAAQIZAYOVqUpQAgQMlh8gQCAjYLAyVQlKgIDB8gMECGQEDFamKkEJEDBYfoAAgYyAwcpUJSgBAgbLDxAgkBEwWJmqBCVAwGD5AQIEMgIGK1OVoAQIGCw/QIBARsBgZaoSlAABg+UHCBDICBisTFWCEiBgsPwAAQIZAYOVqUpQAgQMlh8gQCAjYLAyVQlKgIDB8gMECGQEDFamKkEJEDBYfoAAgYyAwcpUJSgBAgbLDxAgkBEwWJmqBCVAwGD5AQIEMgIGK1OVoAQIGCw/QIBARsBgZaoSlAABg+UHCBDICBisTFWCEiBgsPwAAQIZAYOVqUpQAgQMlh8gQCAjYLAyVQlKgIDB8gMECGQEDFamKkEJEDBYfoAAgYyAwcpUJSgBAgbLDxAgkBEwWJmqBCVAwGD5AQIEMgIGK1OVoAQIGCw/QIBARsBgZaoSlAABg+UHCBDICBisTFWCEiBgsPwAAQIZAYOVqUpQAgQMlh8gQCAjYLAyVQlKgIDB8gMECGQEDFamKkEJEDBYfoAAgYyAwcpUJSgBAgbLDxAgkBEwWJmqBCVAwGD5AQIEMgIGK1OVoAQIGCw/QIBARsBgZaoSlAABg+UHCBDICBisTFWCEiBgsPwAAQIZAYOVqUpQAgQMlh8gQCAjYLAyVQlKgIDB8gMECGQEDFamKkEJEDBYfoAAgYyAwcpUJSgBAgbLDxAgkBEwWJmqBCVAwGD5AQIEMgIGK1OVoAQIGCw/QIBARsBgZaoSlAABg+UHCBDICBisTFWCEiBgsPwAAQIZAYOVqUpQAgQMlh8gQCAjYLAyVQlKgIDB8gMECGQEDFamKkEJEDBYfoAAgYyAwcpUJSgBAgbLDxAgkBEwWJmqBCVAwGD5AQIEMgIGK1OVoAQIGCw/QIBARsBgZaoSlAABg+UHCBDICBisTFWCEiBgsPwAAQIZAYOVqUpQAgQMlh8gQCAjYLAyVQlKgIDB8gMECGQEDFamKkEJEDBYfoAAgYyAwcpUJSgBAgbLDxAgkBEwWJmqBCVAwGD5AQIEMgIGK1OVoAQIGCw/QIBARsBgZaoSlAABg+UHCBDICBisTFWCEiBgsPwAAQIZAYOVqUpQAgQMlh8gQCAjYLAyVQlKgIDB8gMECGQEDFamKkEJEHjr+8DkBQk1VgAAAABJRU5ErkJggg==">-->
                     <!--</div>-->
 				</div>
-			</div>
+			    <h2 id="errormsg" style="color: red"></h2>
+            </div>
 			<div id="vitals" style="margin-top: 5%">
                 <div style="width: 50%;float: left" align="right">
                 <div class="form-group">
@@ -110,7 +124,7 @@
                     <input id="bp" type="text" style="border-radius: 2px;">
                 </div>
 
-                <button class="form-group btn btn-success">Save</button>
+                <button class="form-group btn btn-success" onclick="saveHealthVitals();">Save</button>
             </div>
 
             <div style="margin-left: 51%;border-left: 2px solid deepskyblue; padding-left: 20px;" align="left">
@@ -120,24 +134,51 @@
                 </div>
                 <div class="form-group">
                     <div><h4>Notes:</h4></div>
-                    <textarea id="notes2" rows="4" style="border-radius:2px; width: 30%"></textarea>
+                    <textarea id="medicationnotes" rows="4" style="border-radius:2px; width: 30%"></textarea>
                 </div>
             </div>
 
                 </div>
 			</div>
 			<div id="reports">
-				Repotrs
+                
+                <table id="reportstable" style="width:80%; margin-top: 5%" align="center">
+                    <tr>
+                        <th><h4>Firstname</h4></th>
+                        <th><h4>Lastname</h4></th>
+                        <th><h4>Gender</h4></th>
+                        <th><h4>age</h4></th>
+                        <th><h4>Photo</h4></th>
+                        <th><h4>Medications</h4></th>
+                        <th><h4>Notes</h4></th>
+                    </tr>
+                </table>
 			</div>
 		</div>
 	<script>
+        var img;
+        var patientid=1;
+        function CreateTable() {
+            db = openDatabase('HealthCampdb', '1.0', 'my first database', 2 * 1024 * 1024);
+            db.transaction(function (tx) {
+                tx.executeSql('CREATE TABLE patientdetails  (patientid,firstname,lastname,gender,age,notes,img,height,weight,temp,pulse,bp,medications,medicationnotes)');
+            });
+
+        }
+
         function showDemo() {
-            var demo = document.getElementById('demo');
+            const demo = document.getElementById('demo');
             demo.style.display = "block";
             var reports = document.getElementById('reports');
             reports.style.display = "none";
             var vitals = document.getElementById('vitals');
             vitals.style.display = "none";
+            var vitals1 = document.getElementById('vitalsid');
+            vitals1.style.background = "#2E4053";
+            var reports1 = document.getElementById('reportsid');
+            reports1.style.background = "#2E4053";
+            var demo1 = document.getElementById('demoid');
+            demo1.style.background = "#66ccff";
         }
         function showVitals() {
             var vitals = document.getElementById('vitals');
@@ -146,6 +187,12 @@
             demo.style.display = "none";
             var reports = document.getElementById('reports');
             reports.style.display = "none";
+            var demo1 = document.getElementById('demoid');
+            demo1.style.background = "#2E4053";
+            var reports1 = document.getElementById('reportsid');
+            reports1.style.background = "#2E4053";
+            var vitals1 = document.getElementById('vitalsid');
+            vitals1.style.background = "#66ccff";
         }
         function showReports() {
             var reports = document.getElementById('reports');
@@ -154,7 +201,167 @@
             vitals.style.display = "none";
             var demo = document.getElementById('demo');
             demo.style.display = "none";
+            var demo1 = document.getElementById('demoid');
+            demo1.style.background = "#2E4053";
+            var vitals1 = document.getElementById('vitalsid');
+            vitals1.style.background = "#2E4053";
+            var reports1 = document.getElementById('reportsid');
+            reports1.style.background = "#66ccff";
+//            db.transaction(function(tx){
+//                tx.executeSql('SELECT * from patientdetails',function (transaction,data) {
+//                        alert("Results coming up");
+//                        alert(data.rows[0].firstname);
+//                    }
+//                    ,function (transaction,error) {
+//                        alert(error);
+//                    });
+////				console.log(data);
+//            });
+            db.transaction(function(tx)
+            {
+                tx.executeSql("SELECT firstname,age,gender,image,medications,medicationnotes FROM patientdetails", [], function(sqlTransaction, sqlResultSet) {
+                    var rows = sqlResultSet.rows;
+                    var len = rows.length;
+                    var table=document.getElementById("reportstable");
+                    for (var i = 1; i < len; i++) {
+                        var cur_item = rows[i]; // or u can use the item methid ---> var cur_item = rows.item(i);
+                        // document.getElementById('page').innerHTML=cur_item.age;
+                        // document.getElementById('pgender').innerHTML=cur_item.gender;
+                        // document.getElementById('pmedication').innerHTML=cur_item.medications;
+                        // document.getElementById('pnotes').innerHTML=cur_item.notes;
+                        // document.getElementById('pphoto').src=cur_item.image;
+                        var img=new Image();
+                        img.src=cur_item.image;
+                        var tr = document.createElement("tr");
+                        var td = document.createElement("td");
+                        var ts=cur_item.firstname;
+                        var t2=cur_item.age;
+                        var t3=cur_item.gender;
+                        var t4=cur_item.medications;
+                        var t5=cur_item.medicationnotes;
+                        var pfirstname=document.createTextNode(ts);
+                        var page=document.createTextNode(t2);
+                        var pgender=document.createTextNode(t3);
+                        var pmedications=document.createTextNode(t4);
+                        var pnotes=document.createTextNode(t5);
+                        td.appendChild(pfirstname);
+                        tr.appendChild(td);
+                        var td1 = document.createElement("td");
+                        td1.appendChild(page);
+                        tr.appendChild(td1);
+                        var td2 = document.createElement("td");
+                        td2.appendChild(pgender);
+                        tr.appendChild(td2);
+                        var td3 = document.createElement("td");
+                        td3.appendChild(img);
+                        tr.appendChild(td3);
+                        var td4 = document.createElement("td");
+                        td4.appendChild(pmedications);
+                        tr.appendChild(td4);
+                        var td5 = document.createElement("td");
+                        td5.appendChild(pnotes);
+                        tr.appendChild(td5);
+                        table.appendChild(tr);
+                    }
+                })
+            })
+
+
+
+
+//            var tables = document.getElementById('reportstable');
+//            var table = tables[3];
+//            var rows = table.rows;
+//            for(var i = 0, td; i < 3; i++){
+//                td = document.createElement('td');
+//                td.appendChild(document.createTextNode(i + 1));
+//                rows[i].insertBefore(td, rows[i].firstChild);
+//            }
+
+
         }
+        function saveDemographics() {
+
+            const firstname = document.getElementById('firstname');
+             lastname=document.getElementById('lastname');
+            var gender=document.getElementById('gender');
+            var age=document.getElementById('age');
+            var notes=document.getElementById('notes');
+            try {
+            db.transaction(function (tx) {
+                tx.executeSql('INSERT INTO patientdetails (patientid,firstname,lastname,gender,age,notes,img) values(?,?,?,?,?,?,?)',[patientid,firstname.value,lastname.value,gender.value,age.value,notes.value,img.src]);
+            });}
+            catch(err) {document.getElementById("errormsg").innerHTML=err.message;}
+            showVitals();
+        }
+        function saveHealthVitals() {
+
+            var height=document.getElementById('height');
+
+            var weight=document.getElementById('weight');
+            var temp=document.getElementById('temp');
+            var pulse=document.getElementById('pulse');
+            var bp=document.getElementById('bp');
+            var medications=document.getElementById('medications');
+            var medicationnotes=document.getElementById('medicationnotes');
+
+
+            db.transaction(function (tx) {
+                tx.executeSql('UPDATE patientdetails SET height=?,weight=?,temp=?,pulse=?,bp=?,medications=?,medicationnotes=? WHERE lastname=?',[height.value,weight.value,temp.value,pulse.value,bp.value,medications.value,medicationnotes.value,lastname.value],function (transaction,result) {
+                    console.log("gfchgfghjh"+result);
+                },function (transaction,error) {
+                    console.log("error"+error);
+                });
+
+                });
+            patientid++;
+            showReports();
+        }
+        (function() {
+            'use strict';
+            var video = document.querySelector('video')
+                , canvas;
+
+            /**
+             *  generates a still frame image from the stream in the <video>
+             *  appends the image to the <body>
+             */
+            function takeSnapshot() {
+                img = document.querySelector('img') || document.createElement('img');
+                var context;
+                var width = video.offsetWidth
+                    , height = video.offsetHeight;
+
+                canvas = canvas || document.createElement('canvas');
+                canvas.width = width;
+                canvas.height = height;
+
+                context = canvas.getContext('2d');
+                //context.drawImage(video, 0, 0, width, height);
+
+
+                img.src = canvas.toDataURL('image/png');
+                document.body.appendChild(img);
+
+            }
+
+            // use MediaDevices API
+            // docs: https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia
+            if (navigator.mediaDevices) {
+                // access the web cam
+                navigator.mediaDevices.getUserMedia({video: true})
+                // permission granted:
+                    .then(function(stream) {
+                        video.srcObject = stream;
+                        video.addEventListener('click', takeSnapshot);
+                    })
+                    // permission denied:
+                    .catch(function(error) {
+                        document.body.textContent = 'Could not access the camera. Error: ' + error.name;
+                    });
+            }
+        })();
+
 	</script>
 	</body>
 </html>	
