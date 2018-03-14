@@ -91,13 +91,14 @@
                         <!--&lt;!&ndash;<input type="file" accept="image/*;capture=camera">&ndash;&gt;-->
                         <!--&lt;!&ndash;<input type="file" accept="video/*;capture=camcorder">&ndash;&gt;-->
                     <!--</div>-->
-					<video autoplay></video>
-					<button id="startbutton" class="btn btn-primary">Take photo</button>
-                    <canvas id="canvas">
-                    </canvas>
-                    <!--<div class="output">-->
-                        <!--<img id="photo" alt="The screen capture will appear in this box." src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAACWCAYAAABkW7XSAAAEaUlEQVR4Xu3UAQkAMAwDwdW/k5rcYC4ergrCpWR29x5HgACBgMAYrEBLIhIg8AUMlkcgQCAjYLAyVQlKgIDB8gMECGQEDFamKkEJEDBYfoAAgYyAwcpUJSgBAgbLDxAgkBEwWJmqBCVAwGD5AQIEMgIGK1OVoAQIGCw/QIBARsBgZaoSlAABg+UHCBDICBisTFWCEiBgsPwAAQIZAYOVqUpQAgQMlh8gQCAjYLAyVQlKgIDB8gMECGQEDFamKkEJEDBYfoAAgYyAwcpUJSgBAgbLDxAgkBEwWJmqBCVAwGD5AQIEMgIGK1OVoAQIGCw/QIBARsBgZaoSlAABg+UHCBDICBisTFWCEiBgsPwAAQIZAYOVqUpQAgQMlh8gQCAjYLAyVQlKgIDB8gMECGQEDFamKkEJEDBYfoAAgYyAwcpUJSgBAgbLDxAgkBEwWJmqBCVAwGD5AQIEMgIGK1OVoAQIGCw/QIBARsBgZaoSlAABg+UHCBDICBisTFWCEiBgsPwAAQIZAYOVqUpQAgQMlh8gQCAjYLAyVQlKgIDB8gMECGQEDFamKkEJEDBYfoAAgYyAwcpUJSgBAgbLDxAgkBEwWJmqBCVAwGD5AQIEMgIGK1OVoAQIGCw/QIBARsBgZaoSlAABg+UHCBDICBisTFWCEiBgsPwAAQIZAYOVqUpQAgQMlh8gQCAjYLAyVQlKgIDB8gMECGQEDFamKkEJEDBYfoAAgYyAwcpUJSgBAgbLDxAgkBEwWJmqBCVAwGD5AQIEMgIGK1OVoAQIGCw/QIBARsBgZaoSlAABg+UHCBDICBisTFWCEiBgsPwAAQIZAYOVqUpQAgQMlh8gQCAjYLAyVQlKgIDB8gMECGQEDFamKkEJEDBYfoAAgYyAwcpUJSgBAgbLDxAgkBEwWJmqBCVAwGD5AQIEMgIGK1OVoAQIGCw/QIBARsBgZaoSlAABg+UHCBDICBisTFWCEiBgsPwAAQIZAYOVqUpQAgQMlh8gQCAjYLAyVQlKgIDB8gMECGQEDFamKkEJEDBYfoAAgYyAwcpUJSgBAgbLDxAgkBEwWJmqBCVAwGD5AQIEMgIGK1OVoAQIGCw/QIBARsBgZaoSlAABg+UHCBDICBisTFWCEiBgsPwAAQIZAYOVqUpQAgQMlh8gQCAjYLAyVQlKgIDB8gMECGQEDFamKkEJEDBYfoAAgYyAwcpUJSgBAgbLDxAgkBEwWJmqBCVAwGD5AQIEMgIGK1OVoAQIGCw/QIBARsBgZaoSlAABg+UHCBDICBisTFWCEiBgsPwAAQIZAYOVqUpQAgQMlh8gQCAjYLAyVQlKgIDB8gMECGQEDFamKkEJEDBYfoAAgYyAwcpUJSgBAgbLDxAgkBEwWJmqBCVAwGD5AQIEMgIGK1OVoAQIGCw/QIBARsBgZaoSlAABg+UHCBDICBisTFWCEiBgsPwAAQIZAYOVqUpQAgQMlh8gQCAjYLAyVQlKgIDB8gMECGQEDFamKkEJEHjr+8DkBQk1VgAAAABJRU5ErkJggg==">-->
-                    <!--</div>-->
+					<div id="videodisplay">
+					<video autoplay></video><br>
+					<button id="startbutton" class="btn btn-primary" onclick="takeSnapshot()">Take photo</button></div>
+                    <!--<canvas id="canvas">-->
+                    <!--</canvas>-->
+                    <div class="output" >
+                        <img id="photo" alt="The screen capture will appear in this box." src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAACWCAYAAABkW7XSAAAEaUlEQVR4Xu3UAQkAMAwDwdW/k5rcYC4ergrCpWR29x5HgACBgMAYrEBLIhIg8AUMlkcgQCAjYLAyVQlKgIDB8gMECGQEDFamKkEJEDBYfoAAgYyAwcpUJSgBAgbLDxAgkBEwWJmqBCVAwGD5AQIEMgIGK1OVoAQIGCw/QIBARsBgZaoSlAABg+UHCBDICBisTFWCEiBgsPwAAQIZAYOVqUpQAgQMlh8gQCAjYLAyVQlKgIDB8gMECGQEDFamKkEJEDBYfoAAgYyAwcpUJSgBAgbLDxAgkBEwWJmqBCVAwGD5AQIEMgIGK1OVoAQIGCw/QIBARsBgZaoSlAABg+UHCBDICBisTFWCEiBgsPwAAQIZAYOVqUpQAgQMlh8gQCAjYLAyVQlKgIDB8gMECGQEDFamKkEJEDBYfoAAgYyAwcpUJSgBAgbLDxAgkBEwWJmqBCVAwGD5AQIEMgIGK1OVoAQIGCw/QIBARsBgZaoSlAABg+UHCBDICBisTFWCEiBgsPwAAQIZAYOVqUpQAgQMlh8gQCAjYLAyVQlKgIDB8gMECGQEDFamKkEJEDBYfoAAgYyAwcpUJSgBAgbLDxAgkBEwWJmqBCVAwGD5AQIEMgIGK1OVoAQIGCw/QIBARsBgZaoSlAABg+UHCBDICBisTFWCEiBgsPwAAQIZAYOVqUpQAgQMlh8gQCAjYLAyVQlKgIDB8gMECGQEDFamKkEJEDBYfoAAgYyAwcpUJSgBAgbLDxAgkBEwWJmqBCVAwGD5AQIEMgIGK1OVoAQIGCw/QIBARsBgZaoSlAABg+UHCBDICBisTFWCEiBgsPwAAQIZAYOVqUpQAgQMlh8gQCAjYLAyVQlKgIDB8gMECGQEDFamKkEJEDBYfoAAgYyAwcpUJSgBAgbLDxAgkBEwWJmqBCVAwGD5AQIEMgIGK1OVoAQIGCw/QIBARsBgZaoSlAABg+UHCBDICBisTFWCEiBgsPwAAQIZAYOVqUpQAgQMlh8gQCAjYLAyVQlKgIDB8gMECGQEDFamKkEJEDBYfoAAgYyAwcpUJSgBAgbLDxAgkBEwWJmqBCVAwGD5AQIEMgIGK1OVoAQIGCw/QIBARsBgZaoSlAABg+UHCBDICBisTFWCEiBgsPwAAQIZAYOVqUpQAgQMlh8gQCAjYLAyVQlKgIDB8gMECGQEDFamKkEJEDBYfoAAgYyAwcpUJSgBAgbLDxAgkBEwWJmqBCVAwGD5AQIEMgIGK1OVoAQIGCw/QIBARsBgZaoSlAABg+UHCBDICBisTFWCEiBgsPwAAQIZAYOVqUpQAgQMlh8gQCAjYLAyVQlKgIDB8gMECGQEDFamKkEJEDBYfoAAgYyAwcpUJSgBAgbLDxAgkBEwWJmqBCVAwGD5AQIEMgIGK1OVoAQIGCw/QIBARsBgZaoSlAABg+UHCBDICBisTFWCEiBgsPwAAQIZAYOVqUpQAgQMlh8gQCAjYLAyVQlKgIDB8gMECGQEDFamKkEJEHjr+8DkBQk1VgAAAABJRU5ErkJggg==">
+                    </div>
 				</div>
 			    <h2 id="errormsg" style="color: red"></h2>
             </div>
@@ -145,25 +146,112 @@
                 <table id="reportstable" style="width:80%; margin-top: 5%" align="center">
                     <tr>
                         <th><h4>Firstname</h4></th>
-                        <th><h4>Lastname</h4></th>
-                        <th><h4>Gender</h4></th>
+						<th><h4>Gender</h4></th>
                         <th><h4>age</h4></th>
                         <th><h4>Photo</h4></th>
                         <th><h4>Medications</h4></th>
                         <th><h4>Notes</h4></th>
+						<!--<td id="pname"></td>-->
+						<!--<td id="page"></td>-->
+						<!--<td id="pgender"></td>-->
+						<!--<td id="pphoto"><img src="" style="width: 45px;height: 80px"></td>-->
+						<!--<td id="pmedication"></td>-->
+						<!--<td id="pnotes"></td>-->
                     </tr>
                 </table>
 			</div>
 		</div>
 	<script>
         var img;
-        var patientid=1;
         function CreateTable() {
-            db = openDatabase(' HealthCampdb', '1.0', 'my first database', 2 * 1024 * 1024);
+            db = openDatabase(' SPADB1', '1.0', 'my first database', 2 * 1024 * 1024);
             db.transaction(function (tx) {
-                tx.executeSql('CREATE TABLE patientdetails  (patientid,firstname,lastname,gender,age,notes,img,height,weight,temp,pulse,bp,medications,medicationnotes)');
+                tx.executeSql('CREATE TABLE IF NOT EXISTS patientinfo(firstname,lastname,gender,age,notes,img,height,weight,temp,pulse,bp,medications,medicationnotes)',[],function(tx,result){console.log("table created:"+result);},function(tx,re){console.log("table creation error"+re);});
             });
 
+        }
+
+//        (function() {
+//            'use strict';
+//            var video = document.querySelector('video')
+//                , canvas;
+//
+//            /**
+//             *  generates a still frame image from the stream in the <video>
+//             *  appends the image to the <body>
+//             */
+//            function takeSnapshot() {
+//                img = document.querySelector('img') || document.createElement('img');
+//                var context;
+//                var width = video.offsetWidth/2
+//                    , height = video.offsetHeight/2;
+//
+//                canvas = canvas || document.createElement('canvas');
+//                canvas.width = width;
+//                canvas.height = height;
+//
+//                context = canvas.getContext('2d');
+//                context.drawImage(video, 600, 20, width, height);
+//
+//
+//                img.src = canvas.toDataURL('image/png');
+//                //document.body.appendChild(img);
+//
+//            }
+//
+//            // use MediaDevices API
+//            // docs: https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia
+//            if (navigator.mediaDevices) {
+//                // access the web cam
+//                navigator.mediaDevices.getUserMedia({video: true})
+//                // permission granted:
+//                    .then(function(stream) {
+//                        video.srcObject = stream;
+//                        video.addEventListener('click', takeSnapshot);
+//                    })
+//                    // permission denied:
+//                    .catch(function(error) {
+//                        document.body.textContent = 'Could not access the camera. Error: ' + error.name;
+//                    });
+//            }
+//        })();
+
+        function takeSnapshot() {
+//            var viddisplay = document.getElementById('videodisplay');
+//            viddisplay.style.display = "none";
+//            var imgdisplay = document.getElementById('photo');
+//            imgdisplay.style.display = "block";
+
+            var video = document.querySelector('video')
+                , canvas;
+            img = document.querySelector('img') || document.createElement('img');
+            var context;
+            var width = video.offsetWidth
+                , height = video.offsetHeight;
+            canvas = canvas || document.createElement('canvas');
+            canvas.width = width;
+            canvas.height = height;
+            context = canvas.getContext('2d');
+            context.drawImage(video, 0, 0, width, height);
+            img.src = canvas.toDataURL('image/png');
+
+        }
+        if(document.getElementById('demo').style.display!='none')
+        {
+            (function() {
+                'use strict';
+                var video = document.querySelector('video')
+                    , canvas;
+                if (navigator.mediaDevices) {
+                    navigator.mediaDevices.getUserMedia({video: true})
+                        .then(function(stream) {
+                            video.srcObject = stream;
+                        })
+                        .catch(function(error) {
+                            //document.body.textContent = 'Could not access the camera. Error: ' + error.name;
+                        });
+                }
+            })();
         }
 
         function showDemo() {
@@ -218,12 +306,11 @@
 ////				console.log(data);
 //            });
             db.transaction(function(tx)
-            {		alert("before db fetching");
-
-                tx.executeSql("SELECT firstname,age,gender,image,medications,medicationnotes FROM patientdetails", [], function(tx, sqlResultSet) {
+            {
+				tx.executeSql('SELECT * FROM patientinfo', [], function(tx, sqlResultSet) {
                     var rows = sqlResultSet.rows;
                     var len = rows.length;
-                    alert("results length:"+len);
+                    //alert("results length:"+len);
                     var table=document.getElementById("reportstable");
                     for (var i = 1; i < len; i++) {
                         var cur_item = rows[i]; // or u can use the item methid ---> var cur_item = rows.item(i);
@@ -233,40 +320,44 @@
                         // document.getElementById('pnotes').innerHTML=cur_item.notes;
                         // document.getElementById('pphoto').src=cur_item.image;
                         var img=new Image();
-                        img.src=cur_item.image;
+                        img.src=cur_item.img;
                         var tr = document.createElement("tr");
                         var td = document.createElement("td");
                         var ts=cur_item.firstname;
-                        var t2=cur_item.age;
-                        var t3=cur_item.gender;
+                        var t2=cur_item.gender;
+                        var t3=cur_item.age;
                         var t4=cur_item.medications;
                         var t5=cur_item.medicationnotes;
-                        var pfirstname=document.createTextNode(ts);
-                        var page=document.createTextNode(t2);
-                        var pgender=document.createTextNode(t3);
-                        var pmedications=document.createTextNode(t4);
-                        var pnotes=document.createTextNode(t5);
-                        td.appendChild(pfirstname);
+
+                        var table_firstname=document.createTextNode(ts);
+                        var table_gender=document.createTextNode(t2);
+                        var table_age=document.createTextNode(t3);
+                        var table_medications=document.createTextNode(t4);
+                        var table_notes=document.createTextNode(t5);
+
+                        td.appendChild(table_firstname);
                         tr.appendChild(td);
                         var td1 = document.createElement("td");
-                        td1.appendChild(page);
+                        td1.appendChild(table_gender);
                         tr.appendChild(td1);
                         var td2 = document.createElement("td");
-                        td2.appendChild(pgender);
+                        td2.appendChild(table_age);
                         tr.appendChild(td2);
                         var td3 = document.createElement("td");
                         td3.appendChild(img);
                         tr.appendChild(td3);
                         var td4 = document.createElement("td");
-                        td4.appendChild(pmedications);
+                        td4.appendChild(table_medications);
                         tr.appendChild(td4);
                         var td5 = document.createElement("td");
-                        td5.appendChild(pnotes);
+                        td5.appendChild(table_notes);
                         tr.appendChild(td5);
                         table.appendChild(tr);
                     }
+                },function (tx,err) {
+                    alert("Error fetching the patient details");
                 });
-                alert("after fetching data");
+//                alert("after fetching data");
             });
 
 
@@ -290,11 +381,14 @@
             var gender=document.getElementById('gender');
             var age=document.getElementById('age');
             var notes=document.getElementById('notes');
-            try {
-            db.transaction(function (tx) {
-                tx.executeSql('INSERT INTO patientdetails (patientid,firstname,lastname,gender,age,notes,img) values(?,?,?,?,?,?,?)',[patientid,firstname.value,lastname.value,gender.value,age.value,notes.value,img.src]);
-            });}
-            catch(err) {document.getElementById("errormsg").innerHTML=err.message;}
+			db.transaction(function (tx) {
+                tx.executeSql('INSERT INTO patientinfo (firstname,lastname,gender,age,notes,img) values(?,?,?,?,?,?)',[firstname.value,lastname.value,gender.value,age.value,notes.value,img.src],function (tx,result) {
+                    console.log("Inserted demographics in DB:"+result.rows.length);
+				},function (tx,e) {
+					console.log("err"+e);
+                });
+            });
+
             showVitals();
         }
         function saveHealthVitals() {
@@ -310,60 +404,17 @@
 
 
             db.transaction(function (tx) {
-                tx.executeSql('UPDATE patientdetails SET height=?,weight=?,temp=?,pulse=?,bp=?,medications=?,medicationnotes=? WHERE lastname=?',[height.value,weight.value,temp.value,pulse.value,bp.value,medications.value,medicationnotes.value,lastname.value],function (transaction,result) {
-                    console.log("gfchgfghjh"+result);
-                },function (transaction,error) {
-                    console.log("error"+error);
+                tx.executeSql('UPDATE patientinfo SET height=?,weight=?,temp=?,pulse=?,bp=?,medications=?,medicationnotes=? WHERE lastname=?',[height.value,weight.value,temp.value,pulse.value,bp.value,medications.value,medicationnotes.value,lastname.value],function (tx,result) {
+                    console.log("Database health vitals details update result:"+result.rows.length);
+                },function (tx,er) {
+                    console.log("error"+er);
                 });
 
                 });
-            patientid++;
+            //patientid++;
             showReports();
         }
-        (function() {
-            'use strict';
-            var video = document.querySelector('video')
-                , canvas;
 
-            /**
-             *  generates a still frame image from the stream in the <video>
-             *  appends the image to the <body>
-             */
-            function takeSnapshot() {
-                img = document.querySelector('img') || document.createElement('img');
-                var context;
-                var width = video.offsetWidth
-                    , height = video.offsetHeight;
-
-                canvas = canvas || document.createElement('canvas');
-                canvas.width = width;
-                canvas.height = height;
-
-                context = canvas.getContext('2d');
-                //context.drawImage(video, 0, 0, width, height);
-
-
-                img.src = canvas.toDataURL('image/png');
-                document.body.appendChild(img);
-
-            }
-
-            // use MediaDevices API
-            // docs: https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia
-            if (navigator.mediaDevices) {
-                // access the web cam
-                navigator.mediaDevices.getUserMedia({video: true})
-                // permission granted:
-                    .then(function(stream) {
-                        video.srcObject = stream;
-                        video.addEventListener('click', takeSnapshot);
-                    })
-                    // permission denied:
-                    .catch(function(error) {
-                        document.body.textContent = 'Could not access the camera. Error: ' + error.name;
-                    });
-            }
-        })();
 
 	</script>
 	</body>
